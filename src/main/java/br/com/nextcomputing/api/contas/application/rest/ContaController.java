@@ -1,15 +1,12 @@
 package br.com.nextcomputing.api.contas.application.rest;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import br.com.nextcomputing.api.contas.application.rest.dto.ContaDto;
 import br.com.nextcomputing.api.contas.application.rest.exception.ContaNotFoundException;
 import br.com.nextcomputing.api.contas.domain.enumeration.SituacaoConta;
 import br.com.nextcomputing.api.contas.domain.model.Conta;
 import br.com.nextcomputing.api.contas.domain.service.ContaService;
 import lombok.RequiredArgsConstructor;
-
 
 @RequiredArgsConstructor
 public class ContaController implements ContaApi{
@@ -18,8 +15,10 @@ public class ContaController implements ContaApi{
 
     private final ModelMapper mapper = new ModelMapper();
     
-    public ContaDto findById(@PathVariable long id) {
-        Conta conta = service.findById(id).orElseThrow(ContaNotFoundException::new);
+    public ContaDto findById(long id) {
+        Conta conta = service.findById(id);
+        if(conta == null) 
+            throw new ContaNotFoundException();
         return toDto(conta);
     }
 

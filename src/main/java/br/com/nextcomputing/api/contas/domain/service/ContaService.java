@@ -11,8 +11,8 @@ public class ContaService {
 
     private final ContaPersistence persistence;    
     
-    public Optional<Conta> findById(long id) {
-        return Optional.ofNullable(persistence.findById(id));
+    public Conta findById(long id) {
+        return persistence.findById(id);
     }
     
 }
