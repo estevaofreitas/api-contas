@@ -1,76 +1,30 @@
 # Projeto Api Contas
 
-Este projeto é uma pequena amostra do que seria um carrinho de compras com apenas as funcionalidade de "Simular" e "Checkout" de carrinho de compras.
+Este projeto é uma implementação simplicada de uma API REST utilizando as seguintes ferramentas: Spring Boot, JPA, Flyway, Swagger/OpenAPI, Apache Maven, Docker Compose e PostgreSQL, e outras bibliotecas: Lombok, ModelMapper, Jackson, Junit e Mockito, utilizando plugins nativos da IDE VSCode.
 
-Também foram implementados serviços CRUDs para algumas entidades - Pessoa, OpcaoFrete e Produto, desta forma pode-se realizar várias operações de venda e simular alterações no sistema. 
+Ele segue, mesmo que simplificadamente, os conceitos do Domain Driven Design e da Clean Architecture, onde o temos o pacote domain isolando tanto as regras de negócio quanto os modelos do restante da aplicação.
 
 ## Testando a aplicação
 
-Conforme solicitado, o arquivo abaixo do Docker Compose pode ser utilizado para subir a aplicação: "https://github.com/estevaofreitas/cart/blob/master/src/main/docker/docker-compose.yml".
+Conforme solicitado, o arquivo "https://github.com/estevaofreitas/api-contas/blob/master/src/main/docker/docker-compose.yml" pode ser utilizado para subir a aplicação utilizando o comando abaixo:
 
 Comando:
 
 ```
-docker-compose up
+docker-compose -f docker-compose.yml up
+
 ```
 
-OBS: para facilitar os testes, a imagem do banco é a oficial do PostgreSQL e a cada reinício da aplicação o banco é resetado. 
-No entanto, durante o carregamento da aplicação, alguns dados de teste são são carregados em todas as tabelas.
+OBS: o arquivo compose.yml é utilizado pelo plugin spring-boot-docker-compose e que monta um ambiente para desenvolvimento durante o debug da aplicação.
 
 ## Testando a aplicação
 
-Para facilitar os testes inclui o app Swagger: "http://localhost:8080/swagger-ui/" , mas caso seja necessário pode-se utilizar o Advanced Rest Client.
+Todas as rotas solicitadas foram desenvolvidas e bem documentadas no Swagger-UI: "http://localhost:8080/swagger-ui/index.html" .
 
-Todas as chamadas podem ser testadas diretamente nas duas ferramentas.
+Na rota de carga de contas pode-se utilizar o arquivo "https://raw.githubusercontent.com/estevaofreitas/api-contas/main/docs/carga.csv" como teste inicial da funcionalidade.
 
-Exemplo de conteúdo das chamadas "http://localhost:8080/venda/simular" ou "http://localhost:8080/venda/checkout":
+## Observações
+- Por simplificação algumas validações foram colocadas na API mas também deveriam estar na camada domain para reforçar a regra de negócio,
+- Não foi implementada a solução de autenticação, mas uma solução simples utilizando tokens JWT vai ser adicionada.
 
-```
-{
-  "destinatario": {
-    "id": 4
-  },
-  "enderecoEntrega": {
-    "id": 4
-  },
-  "itens": [
-    {
-      "produto": {
-        "id": 1
-      },
-      "quantidade": 10
-    }
-  ],
-  "opcaoFrete": {
-    "id": 1
-  }
-}
-```
-Existe uma chamada que retorna todas as operações de venda: "http://localhost:8080/venda/".
 
-E outra chamada que retorna as vendas de um cliente: "http://localhost:8080/venda/cliente/4".
-
-A chamada de emissão de nota a partir de uma venda utilizando é a seguinte: "http://localhost:8080/venda/nota/1".
-
-Ela retorna a nota em formato HTML.
-
-Exemplo de inclusão de um CRUD, neste caso é inclusão de Opção de Frete: "http://localhost:8080/frete"
-
-```
-{
-  "descricao": "Normal",
-  "prazo": 1,
-  "preco": 200.45,
-  "transportador": {
-    "id": 3
-  }
-}
-```
-Obs: Somente os ids são necessários para estabelecer os relacionamentos dos objetos, desta forma sempre envie os ids como foi feito acima. 
-Também não envie os ids dos objetos que ainda serão salvos pois eles são gerados de forma incremental. Isto será rejeitado nas validações.
-
-As outras chamadas - "http://localhost:8080/produto" , "http://localhost:8080/pessoa" , "http://localhost:8080/frete" - foram feitas seguindo as orientações sobre HTTP METHODS:
-- POST: incluir, 
-- PUT: alterar,
-- GET: listar,
-- DELETE: deletar
