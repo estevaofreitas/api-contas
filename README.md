@@ -12,7 +12,6 @@ Comando:
 
 ```
 docker-compose -f docker-compose.yml up
-
 ```
 
 OBS: o arquivo compose.yml é utilizado pelo plugin spring-boot-docker-compose e que monta um ambiente para desenvolvimento durante o debug da aplicação.
