@@ -6,7 +6,7 @@ Ele segue, mesmo que simplificadamente, os conceitos do Domain Driven Design e d
 
 ## Testando a aplicação
 
-Conforme solicitado, o arquivo "https://github.com/estevaofreitas/api-contas/blob/master/src/main/docker/docker-compose.yml" pode ser utilizado para subir a aplicação utilizando o comando abaixo:
+Conforme solicitado, o arquivo "https://github.com/estevaofreitas/api-contas/blob/main/docker-compose.yml" pode ser utilizado para subir a aplicação utilizando o comando abaixo:
 
 Comando:
 
@@ -21,7 +21,7 @@ OBS: o arquivo compose.yml é utilizado pelo plugin spring-boot-docker-compose e
 
 Todas as rotas solicitadas foram desenvolvidas e bem documentadas no Swagger-UI: "http://localhost:8080/swagger-ui/index.html" .
 
-Na rota de carga de contas pode-se utilizar o arquivo "https://raw.githubusercontent.com/estevaofreitas/api-contas/main/docs/carga.csv" como teste inicial da funcionalidade.
+Na rota de carga de contas pode-se utilizar o arquivo "https://github.com/estevaofreitas/api-contas/blob/main/docs/carga.csv" como teste inicial da funcionalidade.
 
 ## Observações
 - Por simplificação algumas validações foram colocadas na API mas também deveriam estar na camada domain para reforçar a regra de negócio,
