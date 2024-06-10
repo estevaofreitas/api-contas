@@ -4,7 +4,7 @@ Este projeto é uma implementação simplicada de uma API REST utilizando as seg
 
 Ele segue, mesmo que simplificadamente, os conceitos do Domain Driven Design e da Clean Architecture, onde o temos o pacote domain isolando tanto as regras de negócio quanto os modelos do restante da aplicação.
 
-## Testando a aplicação
+## Como executar a aplicação
 
 Conforme solicitado, o arquivo "https://github.com/estevaofreitas/api-contas/blob/main/docker-compose.yml" pode ser utilizado para subir a aplicação utilizando o comando abaixo:
 
