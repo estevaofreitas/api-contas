@@ -3,6 +3,7 @@ package br.com.nextcomputing.api.contas.application.rest;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +41,7 @@ public interface ContaApi {
         @Operation(summary = "Criação de conta")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Conta encontrada", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = ContaResponse.class)) }) })
+                                        @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ContaResponse.class)) }) })
         @PutMapping
         @ResponseStatus(HttpStatus.OK)
         public ContaResponse create(@RequestBody ContaCreateRequest request);
@@ -48,7 +49,7 @@ public interface ContaApi {
         @Operation(summary = "Atualização da conta")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Conta encontrada", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = ContaResponse.class)) }),
+                                        @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ContaResponse.class)) }),
                         @ApiResponse(responseCode = "400", description = "Id da conta inválido", content = @Content),
                         @ApiResponse(responseCode = "404", description = "Conta não encontrada", content = @Content) })
         @PatchMapping
@@ -58,7 +59,7 @@ public interface ContaApi {
         @Operation(summary = "Atualização da situação da conta pelo id da conta")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Conta encontrada", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = ContaResponse.class)) }),
+                                        @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ContaResponse.class)) }),
                         @ApiResponse(responseCode = "400", description = "Id da conta inválido", content = @Content),
                         @ApiResponse(responseCode = "404", description = "Conta não encontrada", content = @Content) })
         @PatchMapping("/{id}/situacao/{situacao}")
@@ -70,7 +71,7 @@ public interface ContaApi {
         @Operation(summary = "Recupera uma conta pelo seu id")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Conta encontrada", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = ContaResponse.class)) }),
+                                        @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ContaResponse.class)) }),
                         @ApiResponse(responseCode = "400", description = "Id da conta inválido", content = @Content),
                         @ApiResponse(responseCode = "404", description = "Conta não encontrada", content = @Content) })
         @GetMapping("/{id}")
@@ -80,7 +81,7 @@ public interface ContaApi {
         @Operation(summary = "Lista todas as contas pelo filtro")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Lista de contas encontradas", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = List.class)) }),
+                                        @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = List.class)) }),
                         @ApiResponse(responseCode = "404", description = "Nenhuma conta encontrada", content = @Content) })
         @PostMapping
         @ResponseStatus(HttpStatus.OK)
@@ -92,7 +93,7 @@ public interface ContaApi {
         @Operation(summary = "Recupera a soma de todos os pagamentos pelo filtro")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Lista de contas encontradas", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = PagamentoFiltroResponse.class)) }),
+                                        @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = PagamentoFiltroResponse.class)) }),
                         @ApiResponse(responseCode = "404", description = "Nenhuma conta encontrada", content = @Content) })
         @PostMapping("/total")
         @ResponseStatus(HttpStatus.OK)
@@ -101,8 +102,9 @@ public interface ContaApi {
         @Operation(summary = "Importação de contas por um arquivo csv")
         @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Lista de contas encontradas", content = {
-                                        @Content(mediaType = "application/json", schema = @Schema(implementation = MultipartFile.class)) }) })
-        @PostMapping("/import")
+                                        @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE) }) })
+
+        @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
         public void importFile(@RequestParam("arquivo") MultipartFile file);
 
 }
