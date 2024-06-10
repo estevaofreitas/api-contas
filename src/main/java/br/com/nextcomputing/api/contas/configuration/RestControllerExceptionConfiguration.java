@@ -1,4 +1,4 @@
-package br.com.nextcomputing.api.contas.application.rest.exception;
+package br.com.nextcomputing.api.contas.configuration;
 
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import br.com.nextcomputing.api.contas.application.rest.exception.ContaNotFoundException;
+
 @RestControllerAdvice
-public class GlobalControllerExceptionHandler {
+public class RestControllerExceptionConfiguration {
 
     @ExceptionHandler(ConversionFailedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

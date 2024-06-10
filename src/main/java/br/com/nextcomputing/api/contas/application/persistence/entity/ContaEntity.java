@@ -1,7 +1,7 @@
 package br.com.nextcomputing.api.contas.application.persistence.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import br.com.nextcomputing.api.contas.application.persistence.converter.SituacaoContaConverter;
 import br.com.nextcomputing.api.contas.domain.enumeration.SituacaoConta;
@@ -24,19 +24,19 @@ public class ContaEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "data_vencimento")
-    private Date dataVencimento;
+    @Column(name = "data_vencimento", nullable = false)
+    private LocalDate dataVencimento;
     
     @Column(name = "data_pagamento")
-    private Date dataPagamento;
+    private LocalDate dataPagamento;
     
-    @Column(name = "valor")
+    @Column(name = "valor", nullable = false)
     private BigDecimal valor;
     
-    @Column(name = "descricao")
+    @Column(name = "descricao", nullable = false, length = 200)
     private String descricao;
     
-    @Column(name = "situacao")
+    @Column(name = "situacao", nullable = false)
     @Convert(converter = SituacaoContaConverter.class)
     private SituacaoConta situacao;
     
