@@ -95,7 +95,7 @@ public class ContaController implements ContaApi{
 
     @Override
     public void importFile(MultipartFile file) {
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
        
         ObjectMapper objectMapper = new CsvMapper();
         try (MappingIterator<List<String>> it = objectMapper.readerForListOf(String.class)
