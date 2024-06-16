@@ -17,6 +17,11 @@ spring:
         hibernate:
             ddl-auto: validate
 
+    docker:
+        compose:
+            enabled: true
+            file: ./build/debug-compose.yaml
+
 springdoc:
     api-docs:
         path: /api-docs
