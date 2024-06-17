@@ -12,7 +12,7 @@ import br.com.nextcomputing.api.contas.application.persistence.entity.ContaEntit
 @Repository
 public interface ContaRepository extends JpaRepository<ContaEntity, Long>{
     
-    @Query(value = "SELECT SUM(c.valor) FROM contas c WHERE c.situacao = 'P' and c.data_pagamento >= :dataInicioPeriodo and c.data_pagamento <= :dataFimPeriodo", nativeQuery = true)
+    @Query(value = "SELECT SUM(c.valor) FROM contas c WHERE c.situacao = 'P' and c.data_pagamento >= ?1 and c.data_pagamento <= ?2", nativeQuery = true)
     public BigDecimal filterByPagamentos(LocalDate dataInicioPeriodo, LocalDate dataFimPeriodo);
 
 }

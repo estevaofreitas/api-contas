@@ -17,10 +17,27 @@ spring:
         hibernate:
             ddl-auto: validate
 
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: http://localhost:9090/realms/contas
+                    jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
     docker:
         compose:
             enabled: true
             file: ./build/debug-compose.yaml
+
+security:
+    jwt:
+        converter:
+            resource-id: client-api-contas
+            principal-attribute: principal_username
+
+logging:
+    level:
+        '[org.springframework.security]': DEBUG
 
 springdoc:
     api-docs:
