@@ -1,4 +1,5 @@
 services:
+
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     command:
@@ -30,5 +31,8 @@ services:
        - keycloak
     ports:
       - 8080:8080
-    extra_hosts:
-      - "postgres.db:host-gateway"
+    environment:
+      - 'DATABASE_CONNECTION_STRING=jdbc:postgresql://postgres:5432/contas'
+      - 'KEYCLOAK_REALM_URL=http://localhost:9090/realms/contas'
+      - JAVA_OPTS=
+          -Dspring.profiles.active=dev

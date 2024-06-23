@@ -61,7 +61,7 @@ public class SecurityJwtConverter implements Converter<Jwt, AbstractAuthenticati
             return Set.of();
         }
         return resourceRoles.stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
     }
 }

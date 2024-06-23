@@ -1,4 +1,6 @@
 spring:
+    profiles:
+        active: local
     application:
         name: api.contas
 
@@ -7,9 +9,23 @@ spring:
             file-size-threshold: 2KB
             max-file-size: 200MB
             max-request-size: 215MB
-    
+
+security:
+    jwt:
+        converter:
+            resource-id: client-api-contas
+            principal-attribute: principal_username
+
+springdoc:
+    api-docs:
+        path: /api-docs
+---
+spring:
+    config:
+        activate:
+            on-profile: local
     datasource:
-        url: jdbc:postgresql://postgres.db:5432/contas
+        url: ${DATABASE_CONNECTION_STRING:jdbc:postgresql://localhost:5432/contas} 
         username: user
         password: secret
     jpa:
@@ -21,7 +37,7 @@ spring:
         oauth2:
             resourceserver:
                 jwt:
-                    issuer-uri: http://localhost:9090/realms/contas
+                    issuer-uri: ${KEYCLOAK_REALM_URL:http://localhost:9090/realms/contas}
                     jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
     docker:
@@ -29,17 +45,33 @@ spring:
             enabled: true
             file: ./build/debug-compose.yaml
 
-security:
-    jwt:
-        converter:
-            resource-id: client-api-contas
-            principal-attribute: principal_username
+---
+
+spring:
+    config:
+        activate:
+            on-profile: dev
+    datasource:
+        url: ${DATABASE_CONNECTION_STRING:jdbc:postgresql://localhost:5432/contas} 
+        username: user
+        password: secret
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: validate
+
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    issuer-uri: ${KEYCLOAK_REALM_URL:http://localhost:9090/realms/contas}
+                    jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+    docker:
+        compose:
+            enabled: true
+            file: ./build/debug-compose.yaml
 
 logging:
     level:
         '[org.springframework.security]': DEBUG
-
-springdoc:
-    api-docs:
-        path: /api-docs
-

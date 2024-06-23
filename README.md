@@ -24,6 +24,6 @@ Na rota de carga de contas pode-se utilizar o arquivo "https://github.com/esteva
 
 ## Observações
 - Por simplificação algumas validações foram colocadas na API mas também deveriam estar na camada domain para reforçar a regra de negócio,
-- Não foi implementada a solução de autenticação, mas uma solução simples utilizando tokens JWT vai ser adicionada.
+
 
 
